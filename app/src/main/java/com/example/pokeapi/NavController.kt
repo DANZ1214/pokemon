@@ -43,3 +43,5 @@ fun NavControllerComponent(startDestination: String = "home_screen") {
         }
     }
 }
+
+

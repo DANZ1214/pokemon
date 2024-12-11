@@ -1,63 +1,47 @@
 package com.example.pokeapi
 
-import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.CoroutineScope
+import androidx.compose.foundation.content.MediaType.Companion.Text
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.pokeapi.ImagenCard.ImageCard
+import com.example.pokeapi.pokemons.CharacterViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Path
 
-class CharacterScreen : AppCompatActivity() {
 
-    private lateinit var btnLogin: Button
-    private lateinit var txtConsulta: EditText
+@Composable
+fun CharacterScreen(viewModel: CharacterViewModel = CharacterViewModel()) {
+    // State to observe the list of Pokémon
+    val pokemonList = viewModel.pokemonList
 
-    private val service: PokemonService by lazy {
-        Retrofit.Builder()
-            .baseUrl("https://pokeapi.co/api/v2/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(PokemonService::class.java)
+    // Fetch data when screen is displayed
+    LaunchedEffect(Unit) {
+        viewModel.fetchPokemonData()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // ... (resto de tu código de inicialización)
-
-        btnLogin.setOnClickListener { consultarApi() }
-    }
-
-    private fun consultarApi() {
-        val pokemonName = txtConsulta.text.toString()
-
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val pokemon = service.getPokemon(pokemonName)
-                // Actualizar la UI con los datos del Pokémon
-                withContext(Dispatchers.Main) {
-                    // ... (mostrar los datos en la interfaz de usuario)
-                }
-            } catch (e: Exception) {
-                // Manejar errores
+    if (viewModel.isLoading) {
+        Text("Loading Pokémon...", modifier = Modifier.padding(16.dp))
+    } else {
+        // Display the list of Pokémon
+        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+            pokemonList.forEach { (id, imageUrl) ->
+                ImageCard(
+                    image = imageUrl, // Pokémon sprite URL
+                    title = "Pokémon ID: $id"
+                )
             }
         }
     }
 }
-
-interface PokemonService {
-    @GET("pokemon/{name}")
-    suspend fun getPokemon(@Path("name") name: String): Pokemon
-}
-
-data class Pokemon(
-    val id: Int,
-    val name: String,
-    val height: Int,
-    // ... otros campos según la API
-)
