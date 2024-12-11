@@ -1,5 +1,6 @@
 package com.example.pokeapi.ImagenCard
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -31,6 +32,7 @@ fun ImageCard(image: String, title: String, modifier: Modifier = Modifier, title
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp)
+                    .background(Color.DarkGray)
             )
             Text(
                 text = title,
