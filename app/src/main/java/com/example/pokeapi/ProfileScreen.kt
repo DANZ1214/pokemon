@@ -16,6 +16,14 @@ import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.example.pokeapi.ImagenCard.ImageCard
 import com.example.pokeapi.pokemons.CharacterViewModel
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+
+val customFontFamily2 = FontFamily(
+    Font(R.font.modular_amplitude) // Asegúrate de que 'your_custom_font' sea el nombre del archivo de la fuente
+)
+
+
 
 @Composable
 fun ProfileScreen(navController: NavController, viewModel: CharacterViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
@@ -30,7 +38,7 @@ fun ProfileScreen(navController: NavController, viewModel: CharacterViewModel = 
     ) {
         // Imagen de fondo
         AsyncImage(
-            model = "https://images.unsplash.com/photo-1647892591717-28c7fd63bb3f?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            model = "https://cdn.leonardo.ai/users/7226c195-c506-4153-88d6-a0b77a400353/generations/8a3bcccf-f3e0-43df-add7-9dfad94a8bed/Leonardo_Phoenix_a_dark_and_blurred_background_with_a_predomin_2.jpg",
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
@@ -51,7 +59,8 @@ fun ProfileScreen(navController: NavController, viewModel: CharacterViewModel = 
                             title = "Pokémon ID: $id",
                             modifier = Modifier.clickable {
                                 navController.navigate("pokemon_detail/$id")
-                            }
+                            },
+                            titleFont = customFontFamily2 // Aquí pasamos la fuente personalizada
                         )
                     }
                 }
@@ -59,4 +68,5 @@ fun ProfileScreen(navController: NavController, viewModel: CharacterViewModel = 
         }
     }
 }
+
 

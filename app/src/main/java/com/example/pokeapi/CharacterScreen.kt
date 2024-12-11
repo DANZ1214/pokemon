@@ -18,6 +18,14 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.pokeapi.ImagenCard.ImageCard
 import com.example.pokeapi.pokemons.CharacterViewModel
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.res.fontResource
+
+val customFontFamily = FontFamily(
+    Font(R.font.modular_amplitude) // Reemplaza 'your_custom_font' con el nombre de tu archivo de fuente
+)
+
 
 @Composable
 fun CharacterScreen(navController: NavController, viewModel: CharacterViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
@@ -32,7 +40,7 @@ fun CharacterScreen(navController: NavController, viewModel: CharacterViewModel 
             .fillMaxSize()
     ) {
         AsyncImage(
-            model = "https://images.unsplash.com/photo-1647892591717-28c7fd63bb3f?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            model = "https://cdn.leonardo.ai/users/7226c195-c506-4153-88d6-a0b77a400353/generations/8a3bcccf-f3e0-43df-add7-9dfad94a8bed/Leonardo_Phoenix_a_dark_and_blurred_background_with_a_predomin_2.jpg",
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
@@ -49,15 +57,16 @@ fun CharacterScreen(navController: NavController, viewModel: CharacterViewModel 
                     items(pokemonList) { (id, imageUrl) ->
                         ImageCard(
                             image = imageUrl,
-                            title = "Pokémon ID: $id",
+                            title = "Pokemon ID: $id",
                             modifier = Modifier
                                 .clickable {
                                     navController.navigate("pokemon_detail/$id")
                                 }
                                 .padding(8.dp)
                                 .fillMaxWidth()
-                                .background(Color(0xFF1976D2)), // Fondo azul
-                            titleColor = Color.White // Texto en blanco
+                                .background(Color.Yellow), // Fondo amarillo
+                            titleColor = Color.Black, // Texto en negro
+                            titleFont = customFontFamily // Aquí pasas la fuente personalizada
                         )
                     }
                 }
@@ -65,3 +74,5 @@ fun CharacterScreen(navController: NavController, viewModel: CharacterViewModel 
         }
     }
 }
+
+

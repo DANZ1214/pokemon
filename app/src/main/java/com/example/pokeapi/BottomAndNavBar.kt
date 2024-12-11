@@ -12,15 +12,36 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopNavBar(){
+fun TopNavBar() {
+    val backgroundColor = Color.Yellow // Amarillo estilo Pikachu
+    val contentColor = Color.Black    // Negro para el texto del título
+
+    val pokemonFont = FontFamily(
+        Font(R.font.pokemon_solid) // Fuente personalizada
+    )
+
     TopAppBar(
-        title = { Text(stringResource(R.string.app_name)) },
+        title = {
+            Text(
+                text = stringResource(R.string.app_name),
+                color = contentColor,
+                fontSize = 24.sp, // Tamaño de fuente grande
+                fontWeight = FontWeight.Bold, // Negrita para resaltar
+                letterSpacing = 1.5.sp, // Espaciado entre letras
+                fontFamily = pokemonFont // Aplica la fuente personalizada
+            )
+        },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color(0xFF2196F3) // Azul adecuado
+            containerColor = backgroundColor,
+            titleContentColor = contentColor
         )
     )
 }
@@ -28,7 +49,7 @@ fun TopNavBar(){
 @Composable
 fun BottomNavBar(navController: NavController) {
     BottomAppBar(
-        containerColor = Color(0xFF2196F3), // Azul adecuado
+        containerColor = Color.Yellow, // Azul adecuado
         actions = {
             Row(
                 modifier = Modifier.fillMaxWidth(),

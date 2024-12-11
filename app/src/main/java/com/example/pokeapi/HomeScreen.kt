@@ -40,7 +40,7 @@ fun HomeScreen(navController: NavController) {
     ) {
         // Imagen de fondo
         AsyncImage(
-            model = "https://images.unsplash.com/photo-1647892591717-28c7fd63bb3f?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Cambia esta URL por la que desees usar
+            model = "https://cdn.leonardo.ai/users/7226c195-c506-4153-88d6-a0b77a400353/generations/8a3bcccf-f3e0-43df-add7-9dfad94a8bed/Leonardo_Phoenix_a_dark_and_blurred_background_with_a_predomin_2.jpg", // Cambia esta URL por la que desees usar
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
@@ -101,14 +101,15 @@ fun HomeScreen(navController: NavController) {
                     }
                 },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF1976D2), // Azul del TopAppBar
+                    containerColor = Color.Yellow, // Azul del TopAppBar
                     contentColor = Color.White // Texto blanco
                 )
             ) {
                 Text(
                     text = "Buscar",
                     fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
                 )
             }
 
