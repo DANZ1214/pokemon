@@ -16,6 +16,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
+import coil3.compose.AsyncImage
 import com.example.pokeapi.apiconfig.ApiClient
 import com.example.pokeapi.pokemons.ApiServicePokemon
 import kotlinx.coroutines.Dispatchers
