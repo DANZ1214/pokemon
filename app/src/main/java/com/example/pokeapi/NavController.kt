@@ -39,6 +39,13 @@ fun NavControllerComponent(startDestination: String = "home_screen") {
                     val id = backStackEntry.arguments?.getString("id") ?: "Unknown"
                     PokemonDetailScreen(id = id)
                 }
+                composable(
+                    route = "pokemon_detail_shyny/{id}",
+                    arguments = listOf(navArgument("id") { type = NavType.StringType })
+                ) { backStackEntry ->
+                    val id = backStackEntry.arguments?.getString("id") ?: "Unknown"
+                    PokemonDetailScreenShyny(id = id)
+                }
             }
         }
     }

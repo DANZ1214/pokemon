@@ -20,7 +20,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 
 val customFontFamily2 = FontFamily(
-    Font(R.font.modular_amplitude) // Asegúrate de que 'your_custom_font' sea el nombre del archivo de la fuente
+    Font(R.font.modular_amplitude)
 )
 
 
@@ -58,9 +58,9 @@ fun ProfileScreen(navController: NavController, viewModel: CharacterViewModel = 
                             image = imageUrl,
                             title = "Pokemon ID: $id",
                             modifier = Modifier.clickable {
-                                navController.navigate("pokemon_detail/$id")
+                                navController.navigate("pokemon_detail_shyny/$id")
                             },
-                            titleFont = customFontFamily2 // Aquí pasamos la fuente personalizada
+                            titleFont = customFontFamily2
                         )
                     }
                 }
