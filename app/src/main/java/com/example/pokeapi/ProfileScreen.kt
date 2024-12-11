@@ -56,7 +56,7 @@ fun ProfileScreen(navController: NavController, viewModel: CharacterViewModel = 
                     items(pokemonList) { (id, imageUrl) ->
                         ImageCard(
                             image = imageUrl,
-                            title = "Pokémon ID: $id",
+                            title = "Pokemon ID: $id",
                             modifier = Modifier.clickable {
                                 navController.navigate("pokemon_detail/$id")
                             },
