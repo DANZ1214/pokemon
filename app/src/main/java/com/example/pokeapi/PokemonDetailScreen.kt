@@ -42,7 +42,7 @@ fun PokemonDetailScreen(id: String) {
 
                 pokemonName.value = pokemon?.name ?: "Unknown"
                 pokemonType.value = pokemon?.types?.joinToString { it.type.name } ?: "Unknown"
-                pokemonImage.value = pokemon?.sprites?.front_default // Asignar URL de la imagen
+                pokemonImage.value = pokemon?.sprites?.front_default
             } else {
                 pokemonName.value = "Error"
                 pokemonType.value = "Error"
