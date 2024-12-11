@@ -8,12 +8,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
+import coil3.compose.AsyncImage
 
 @Composable
-fun ImageCard(image: String, title: String) {
+fun ImageCard(
+    image: String,
+    title: String,
+    modifier: Modifier = Modifier // Agregar este parámetro
+) {
     Card(
-        modifier = Modifier
+        modifier = modifier // Usar el modificador que se pase al componente
             .fillMaxWidth()
             .padding(8.dp)
     ) {
@@ -47,4 +51,3 @@ fun ImageCard(image: String, title: String) {
         }
     }
 }
-

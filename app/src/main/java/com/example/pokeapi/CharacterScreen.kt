@@ -1,5 +1,6 @@
-package com.example.pokeapi
+package com.example.pokeapi.pokemons
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -14,10 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pokeapi.ImagenCard.ImageCard
-import com.example.pokeapi.pokemons.CharacterViewModel
+import androidx.navigation.NavController
 
 @Composable
-fun CharacterScreen(viewModel: CharacterViewModel = viewModel()) {
+fun CharacterScreen(navController: NavController, viewModel: CharacterViewModel = viewModel()) {
     val pokemonList = viewModel.pokemonList
 
     // Cargar los datos al iniciar
@@ -32,27 +33,29 @@ fun CharacterScreen(viewModel: CharacterViewModel = viewModel()) {
     ) {
         when {
             viewModel.isLoading -> {
-                // Mostrar un indicador de carga en el centro de la pantalla
                 CircularProgressIndicator(
                     modifier = Modifier.align(Alignment.Center)
                 )
             }
             pokemonList.isEmpty() -> {
-                // Mostrar un mensaje si no hay datos
                 Text(
                     text = "No Pokémon found!",
                     modifier = Modifier.align(Alignment.Center)
                 )
             }
             else -> {
-                // Mostrar la lista de Pokémon usando LazyColumn
                 LazyColumn(
                     modifier = Modifier.fillMaxSize()
                 ) {
                     items(pokemonList) { (id, imageUrl) ->
+                        // Hacer clic en la imagen para navegar al detalle
                         ImageCard(
                             image = imageUrl,
-                            title = "Pokémon ID: $id"
+                            title = "Pokémon ID: $id",
+                            modifier = Modifier.clickable {
+                                navController.navigate("pokemon_detail_screen/$id")
+                            }
+
                         )
                     }
                 }
