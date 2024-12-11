@@ -1,10 +1,12 @@
 package com.example.pokeapi
 
+import androidx.compose.foundation.background
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -38,7 +40,7 @@ fun HomeScreen(navController: NavController) {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        // Imagen de fondo
+
         AsyncImage(
             model = "https://cdn.leonardo.ai/users/7226c195-c506-4153-88d6-a0b77a400353/generations/8a3bcccf-f3e0-43df-add7-9dfad94a8bed/Leonardo_Phoenix_a_dark_and_blurred_background_with_a_predomin_2.jpg", // Cambia esta URL por la que desees usar
             contentDescription = null,
@@ -46,7 +48,7 @@ fun HomeScreen(navController: NavController) {
             contentScale = ContentScale.Crop
         )
 
-        // Contenido principal
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -101,8 +103,8 @@ fun HomeScreen(navController: NavController) {
                     }
                 },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Yellow, // Azul del TopAppBar
-                    contentColor = Color.White // Texto blanco
+                    containerColor = Color.Yellow,
+                    contentColor = Color.White
                 )
             ) {
                 Text(
@@ -118,10 +120,14 @@ fun HomeScreen(navController: NavController) {
                     image = result.imageUrl,
                     title = "Name: ${result.name}\nTypes: ${result.types}",
                     modifier = Modifier.padding(16.dp)
+                        .fillMaxWidth()
+                        .background(Color.Yellow),
+                    titleColor = Color.Black,
+                    titleFont = customFontFamily
                 )
             } ?: Text(
                 text = "No Pokémon Found",
-                color = Color.White, // Texto blanco
+                color = Color.White,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(16.dp)

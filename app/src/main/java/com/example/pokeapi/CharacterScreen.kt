@@ -64,9 +64,9 @@ fun CharacterScreen(navController: NavController, viewModel: CharacterViewModel 
                                 }
                                 .padding(8.dp)
                                 .fillMaxWidth()
-                                .background(Color.Yellow), // Fondo amarillo
-                            titleColor = Color.Black, // Texto en negro
-                            titleFont = customFontFamily // Aquí pasas la fuente personalizada
+                                .background(Color.Yellow),
+                            titleColor = Color.Black,
+                            titleFont = customFontFamily
                         )
                     }
                 }
