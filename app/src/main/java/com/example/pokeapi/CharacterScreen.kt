@@ -1,46 +1,61 @@
 package com.example.pokeapi
 
-import androidx.compose.foundation.content.MediaType.Companion.Text
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pokeapi.ImagenCard.ImageCard
 import com.example.pokeapi.pokemons.CharacterViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-
 
 @Composable
-fun CharacterScreen(viewModel: CharacterViewModel = CharacterViewModel()) {
-    // State to observe the list of Pokémon
+fun CharacterScreen(viewModel: CharacterViewModel = viewModel()) {
     val pokemonList = viewModel.pokemonList
 
-    // Fetch data when screen is displayed
+    // Cargar los datos al iniciar
     LaunchedEffect(Unit) {
         viewModel.fetchPokemonData()
     }
 
-    if (viewModel.isLoading) {
-        Text("Loading Pokémon...", modifier = Modifier.padding(16.dp))
-    } else {
-        // Display the list of Pokémon
-        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-            pokemonList.forEach { (id, imageUrl) ->
-                ImageCard(
-                    image = imageUrl, // Pokémon sprite URL
-                    title = "Pokémon ID: $id"
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(8.dp)
+    ) {
+        when {
+            viewModel.isLoading -> {
+                // Mostrar un indicador de carga en el centro de la pantalla
+                CircularProgressIndicator(
+                    modifier = Modifier.align(Alignment.Center)
                 )
+            }
+            pokemonList.isEmpty() -> {
+                // Mostrar un mensaje si no hay datos
+                Text(
+                    text = "No Pokémon found!",
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            }
+            else -> {
+                // Mostrar la lista de Pokémon usando LazyColumn
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    items(pokemonList) { (id, imageUrl) ->
+                        ImageCard(
+                            image = imageUrl,
+                            title = "Pokémon ID: $id"
+                        )
+                    }
+                }
             }
         }
     }
