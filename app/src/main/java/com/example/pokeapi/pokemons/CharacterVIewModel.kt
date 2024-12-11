@@ -19,6 +19,9 @@ class CharacterViewModel : ViewModel() {
     var pokemonList by mutableStateOf(listOf<Pair<Int, String>>())
         private set
 
+    var pokemonListShyny by mutableStateOf(listOf<Pair<Int, String>>())
+        private set
+
     fun fetchPokemonData() {
         viewModelScope.launch(Dispatchers.IO) {
             val tempList = mutableListOf<Pair<Int, String>>()
@@ -36,6 +39,29 @@ class CharacterViewModel : ViewModel() {
             } finally {
                 withContext(Dispatchers.Main) {
                     pokemonList = tempList.toList()
+                    isLoading = false
+                }
+            }
+        }
+    }
+
+    fun fetchPokemonDataShyny() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val tempList = mutableListOf<Pair<Int, String>>()
+            try {
+                for (id in 1..200) { // Adjust range as needed
+                    val response = apiService.getPokemonByIdOrName(id.toString()).execute()
+                    if (response.isSuccessful) {
+                        val pokemon = response.body()
+                        val spriteUrl = pokemon?.sprites?.front_shiny ?: ""
+                        tempList.add(id to spriteUrl)
+                    }
+                }
+            } catch (e: Exception) {
+                println("Error fetching Pokémon data: ${e.message}")
+            } finally {
+                withContext(Dispatchers.Main) {
+                    pokemonListShyny = tempList.toList()
                     isLoading = false
                 }
             }

@@ -28,7 +28,7 @@ fun NavControllerComponent(startDestination: String = "home_screen") {
                     HomeScreen(navController)
                 }
                 composable("profile_screen") {
-                    ProfileScreen()
+                    ProfileScreen(navController)
                 }
                 composable("character_screen") {
                     CharacterScreen(navController)

@@ -70,10 +70,6 @@ fun HomeScreen(navController: NavController) {
             modifier = Modifier.padding(16.dp)
         )
 
-        Button(onClick = {
-            navController.navigate("profile_screen")
-        }) {
-            Text("Go to Profile Screen")
-        }
+
     }
 }

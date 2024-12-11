@@ -39,6 +39,7 @@ data class PokemonResponse(
 
 data class Sprites(
     val front_default: String?,
+    val front_shiny: String?,
     val other: OtherSprites?
 )
 
@@ -47,7 +48,8 @@ data class OtherSprites(
 )
 
 data class OfficialArtwork(
-    val front_default: String?
+    val front_default: String?,
+    val front_shiny: String?
 )
 
 data class PokemonListResponse(
