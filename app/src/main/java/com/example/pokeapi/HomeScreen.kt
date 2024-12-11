@@ -25,7 +25,7 @@ fun HomeScreen(navController: NavController) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Este pal cuadro de búsqueda ok
+        // Este pal cuadro de búsqueda
         OutlinedTextField(
             value = searchQuery.value,
             onValueChange = { searchQuery.value = it },
