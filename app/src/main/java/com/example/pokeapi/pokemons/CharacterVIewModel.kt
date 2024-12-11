@@ -49,7 +49,7 @@ class CharacterViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             val tempList = mutableListOf<Pair<Int, String>>()
             try {
-                for (id in 1..200) { // Adjust range as needed
+                for (id in 1..20) { // Adjust range as needed
                     val response = apiService.getPokemonByIdOrName(id.toString()).execute()
                     if (response.isSuccessful) {
                         val pokemon = response.body()
