@@ -1,8 +1,10 @@
 package com.example.pokeapi
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -10,7 +12,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.example.pokeapi.apiconfig.ApiClient
 import com.example.pokeapi.pokemons.ApiServicePokemon
 import kotlinx.coroutines.Dispatchers
@@ -19,48 +24,70 @@ import retrofit2.create
 
 @Composable
 fun PokemonDetailScreen(id: String) {
-    // Variables de estado para almacenar los detalles del Pokémon
+
     val pokemonName = remember { mutableStateOf("Loading...") }
     val pokemonType = remember { mutableStateOf("Loading...") }
+    val pokemonImage = remember { mutableStateOf<String?>(null) } // URL de la imagen
 
-    // Efecto lanzado para realizar el llamado a la API
+
     LaunchedEffect(id) {
         val apiService = ApiClient.retrofit.create(ApiServicePokemon::class.java)
         try {
-            // Llamado a la API en un hilo secundario
+
             val response = withContext(Dispatchers.IO) {
                 apiService.getPokemonByIdOrName(id).execute()
             }
             if (response.isSuccessful) {
                 val pokemon = response.body()
-                // Actualización de las variables de estado con los datos del Pokémon
+
                 pokemonName.value = pokemon?.name ?: "Unknown"
                 pokemonType.value = pokemon?.types?.joinToString { it.type.name } ?: "Unknown"
+                pokemonImage.value = pokemon?.sprites?.front_default // Asignar URL de la imagen
             } else {
                 pokemonName.value = "Error"
                 pokemonType.value = "Error"
+                pokemonImage.value = null
             }
         } catch (e: Exception) {
-            // Manejo de errores
+
             pokemonName.value = "Error"
             pokemonType.value = "Error"
+            pokemonImage.value = null
         }
     }
 
-    // UI para mostrar los detalles del Pokémon
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        Text(
-            text = """
-                Pokémon Details:
-                ID: $id
-                Name: ${pokemonName.value}
-                Type: ${pokemonType.value}
-            """.trimIndent(),
-            modifier = Modifier.align(Alignment.Center)
-        )
+        Column(
+            modifier = Modifier.align(Alignment.Center),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+
+            if (pokemonImage.value != null) {
+                AsyncImage(
+                    model = pokemonImage.value,
+                    contentDescription = "Image of ${pokemonName.value}",
+                    modifier = Modifier
+                        .size(200.dp)
+                        .padding(bottom = 16.dp),
+                    contentScale = ContentScale.Crop
+                )
+            } else {
+                Text("Loading Image...", textAlign = TextAlign.Center)
+            }
+
+            Text(
+                text = """
+                    Pokémon Details:
+                    ID: $id
+                    Name: ${pokemonName.value}
+                    Type: ${pokemonType.value}
+                """.trimIndent(),
+                textAlign = TextAlign.Center
+            )
+        }
     }
 }
