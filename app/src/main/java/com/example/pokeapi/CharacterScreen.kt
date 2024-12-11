@@ -23,7 +23,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.res.fontResource
 
 val customFontFamily = FontFamily(
-    Font(R.font.modular_amplitude) // Reemplaza 'your_custom_font' con el nombre de tu archivo de fuente
+    Font(R.font.modular_amplitude)
 )
 
 

@@ -7,7 +7,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-// Modelos para consumir la API
 
 data class Ability(
     val ability: NamedAPIResource,
@@ -59,7 +58,7 @@ data class PokemonListResponse(
     val results: List<NamedAPIResource>
 )
 
-// Interfaz para la API
+
 interface ApiServicePokemon {
     @GET("pokemon/")
     fun getPokemonList(@Query("limit") limit: Int, @Query("offset") offset: Int): Call<PokemonListResponse>
@@ -68,7 +67,7 @@ interface ApiServicePokemon {
     fun getPokemonByIdOrName(@Path("idOrName") idOrName: String): Call<PokemonResponse>
 }
 
-// Clase adaptada para usar los datos de la API
+
 class Pokedex {
     var id: String = ""
     var name: String = ""
@@ -87,7 +86,7 @@ class Pokedex {
     }
 }
 
-// Configuración de Retrofit
+
 object RetrofitClient {
     private const val BASE_URL = "https://pokeapi.co/api/v2/"
 
@@ -101,11 +100,9 @@ object RetrofitClient {
     }
 }
 
-// Ejemplo de uso
 fun main() {
     val apiService = RetrofitClient.apiService
 
-    // Obtener un Pokémon por nombre o ID
     val call = apiService.getPokemonByIdOrName("pikachu")
     call.enqueue(object : retrofit2.Callback<PokemonResponse> {
         override fun onResponse(

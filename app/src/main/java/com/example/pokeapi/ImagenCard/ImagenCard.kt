@@ -36,8 +36,8 @@ fun ImageCard(image: String, title: String, modifier: Modifier = Modifier, title
                 text = title,
                 modifier = Modifier.padding(top = 8.dp),
                 textAlign = TextAlign.Center,
-                color = titleColor, // Color del texto
-                fontFamily = titleFont // Aplica la fuente aquí
+                color = titleColor,
+                fontFamily = titleFont
             )
         }
     }
