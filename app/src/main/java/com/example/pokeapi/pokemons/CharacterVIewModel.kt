@@ -11,7 +11,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class CharacterViewModel : ViewModel() {
-
     private val apiService = ApiClient.retrofit.create(ApiServicePokemon::class.java)
 
     var isLoading by mutableStateOf(true)
@@ -24,19 +23,16 @@ class CharacterViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             val tempList = mutableListOf<Pair<Int, String>>()
             try {
-                for (id in 1..200) { // Ajusta el rango según sea necesario
+                for (id in 1..200) { // Adjust range as needed
                     val response = apiService.getPokemonByIdOrName(id.toString()).execute()
                     if (response.isSuccessful) {
                         val pokemon = response.body()
-                        val spriteUrl = pokemon?.sprites?.front_default // Cambia a front_default
-                            ?: "" // Usa una cadena vacía si no hay sprite
+                        val spriteUrl = pokemon?.sprites?.front_default ?: ""
                         tempList.add(id to spriteUrl)
-                    } else {
-                        println("Error fetching Pokémon with ID $id: ${response.errorBody()?.string()}")
                     }
                 }
             } catch (e: Exception) {
-                println("Exception fetching Pokémon data: ${e.message}")
+                println("Error fetching Pokémon data: ${e.message}")
             } finally {
                 withContext(Dispatchers.Main) {
                     pokemonList = tempList.toList()
@@ -46,4 +42,3 @@ class CharacterViewModel : ViewModel() {
         }
     }
 }
-

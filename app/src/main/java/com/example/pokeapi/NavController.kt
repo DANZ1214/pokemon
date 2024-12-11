@@ -1,5 +1,6 @@
 package com.example.pokeapi
 
+import com.example.pokeapi.CharacterScreen
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -11,8 +12,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.pokeapi.pokemons.CharacterScreen
-import com.example.pokeapi.PokemonDetailScreen
 
 @Composable
 fun NavControllerComponent(startDestination: String = "home_screen") {
@@ -34,15 +33,12 @@ fun NavControllerComponent(startDestination: String = "home_screen") {
                 composable("character_screen") {
                     CharacterScreen(navController)
                 }
-                // Ruta para la pantalla de detalles
                 composable(
-                    "pokemon_detail/{id}",
-                    arguments = listOf(
-                        navArgument("id") { type = NavType.StringType }
-                    )
+                    route = "pokemon_detail/{id}",
+                    arguments = listOf(navArgument("id") { type = NavType.StringType })
                 ) { backStackEntry ->
                     val id = backStackEntry.arguments?.getString("id") ?: "Unknown"
-                    PokemonDetailScreen(id = id, name = "Unknown", type = "Unknown")
+                    PokemonDetailScreen(id = id)
                 }
             }
         }
