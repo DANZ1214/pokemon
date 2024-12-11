@@ -20,26 +20,21 @@ import com.example.pokeapi.apiconfig.ApiClient
 import com.example.pokeapi.pokemons.ApiServicePokemon
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.create
 
 @Composable
 fun PokemonDetailScreen(id: String) {
-
     val pokemonName = remember { mutableStateOf("Loading...") }
     val pokemonType = remember { mutableStateOf("Loading...") }
-    val pokemonImage = remember { mutableStateOf<String?>(null) } // URL de la imagen
-
+    val pokemonImage = remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(id) {
         val apiService = ApiClient.retrofit.create(ApiServicePokemon::class.java)
         try {
-
             val response = withContext(Dispatchers.IO) {
                 apiService.getPokemonByIdOrName(id).execute()
             }
             if (response.isSuccessful) {
                 val pokemon = response.body()
-
                 pokemonName.value = pokemon?.name ?: "Unknown"
                 pokemonType.value = pokemon?.types?.joinToString { it.type.name } ?: "Unknown"
                 pokemonImage.value = pokemon?.sprites?.front_default
@@ -49,7 +44,6 @@ fun PokemonDetailScreen(id: String) {
                 pokemonImage.value = null
             }
         } catch (e: Exception) {
-
             pokemonName.value = "Error"
             pokemonType.value = "Error"
             pokemonImage.value = null
@@ -65,7 +59,6 @@ fun PokemonDetailScreen(id: String) {
             modifier = Modifier.align(Alignment.Center),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             if (pokemonImage.value != null) {
                 AsyncImage(
                     model = pokemonImage.value,

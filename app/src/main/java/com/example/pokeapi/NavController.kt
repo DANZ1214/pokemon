@@ -1,6 +1,5 @@
 package com.example.pokeapi
 
-import com.example.pokeapi.CharacterScreen
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding

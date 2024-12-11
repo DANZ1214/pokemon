@@ -7,26 +7,28 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopNavBar(){
-    TopAppBar({ Text(stringResource(R.string.app_name)) })
+    TopAppBar(
+        title = { Text(stringResource(R.string.app_name)) },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = Color(0xFF2196F3) // Azul adecuado
+        )
+    )
 }
 
 @Composable
 fun BottomNavBar(navController: NavController) {
     BottomAppBar(
+        containerColor = Color(0xFF2196F3), // Azul adecuado
         actions = {
             Row(
                 modifier = Modifier.fillMaxWidth(),
